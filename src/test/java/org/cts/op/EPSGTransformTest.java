@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
- * @author Erwan Bocher
+ * @author Erwan Bocher, Robert Wittek
  */
 class EPSGTransformTest extends BaseCoordinateTransformTest {
 
@@ -63,7 +63,6 @@ class EPSGTransformTest extends BaseCoordinateTransformTest {
         assertTrue(checkEquals2D("EPSG:27582 to EPSG:4326", result, pointDest, tolerance));
     }
     
-    
      @Test
      void testFrenchEPSGCodeFrom27572To3857() throws Exception {
         String csNameSrc = "EPSG:27572"; //Input EPSG
@@ -76,5 +75,19 @@ class EPSGTransformTest extends BaseCoordinateTransformTest {
         verbose = true;
         double[] result = transform((GeodeticCRS) inputCRS, (GeodeticCRS) outputCRS, pointSource);
         assertTrue(checkEquals2D("EPSG:27572 to EPSG:3857", result, pointDest, tolerance));
+    }
+
+    @Test
+    void testBritishEPSGCodeFrom7405To4326() throws Exception {
+        String csNameSrc = "EPSG:7405"; //Input EPSG
+        double[] pointSource = new double[]{278350, 377447};
+        String csNameDest = "EPSG:4326";  //Target EPSG
+        double[] pointDest = new double[]{-3.8260047, 53.2799987};
+        double tolerance = 0.0001;
+        CoordinateReferenceSystem inputCRS = cRSFactory.getCRS(csNameSrc);
+        CoordinateReferenceSystem outputCRS = cRSFactory.getCRS(csNameDest);
+        verbose = true;
+        double[] result = transform((GeodeticCRS) inputCRS, (GeodeticCRS) outputCRS, pointSource);
+        assertTrue(checkEquals2D("EPSG:7405 to EPSG:4326", result, pointDest, tolerance));
     }
 }
